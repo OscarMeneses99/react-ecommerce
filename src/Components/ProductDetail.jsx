@@ -3,10 +3,10 @@ import { ShoopingCartContext } from '../Context/Context'
 import '../App.css'
 
 const ProductDetail = () => {
-    const { isProductDetailView, closeProductDetail, productShow} = useContext(ShoopingCartContext)
-    console.log(productShow)
+    const { isProductDetailView, closeProductDetail, productShow } = useContext(ShoopingCartContext)
+
     return (
-        <aside className={`${isProductDetailView ? 'flex' : 'hidden'} product-detail flex-col fixed right-0 border border-black rounded-lg bg-white`}>
+        <aside className={`${isProductDetailView ? 'flex' : 'hidden'} product-detail scrollable-cards flex-col fixed right-0 border border-black rounded-lg bg-white`}>
             <div className='flex justify-between items-center p-3'>
                 <h2 className='text-xl font-medium'>Product Detail</h2>
                 <div className='cursor-pointer' onClick={() => closeProductDetail()}>
@@ -16,9 +16,9 @@ const ProductDetail = () => {
                 </div>
             </div>
             <figure className='px-10 py-0'>
-                <img className='w-full h-full object-cover rounded-lg' src={productShow.images[0]} alt={productShow.title} />
+                <img className='w-full h-full object-cover rounded-lg' src={productShow.images[1]} alt={productShow.title} />
             </figure>
-            <p  className='flex flex-col p-6'> 
+            <p className='flex flex-col p-6'>
                 <span className='text-2xl font-medium mb-1'>{productShow.title}</span>
                 <span className='text-md font-medium'>${productShow.price}</span>
                 <span className='text-sm font-light'>-{productShow.description}</span>

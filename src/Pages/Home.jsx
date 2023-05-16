@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import Layout from "../Components/Layout"
 import Card from "../Components/Card"
 import ProductDetail from "../Components/ProductDetail"
+import CheckoutSideMenu from "../Components/CheckoutSideMenu"
 
 const Home = () => {
 
@@ -15,11 +16,12 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+      <div className="grid gap-8 grid-cols-4 w-full max-w-screen-lg h-full">
         {
           items?.map((product) => (<Card key={product.id} {...product} />))
         }
       </div>
+      <CheckoutSideMenu />
       <ProductDetail />
     </Layout>
   )
