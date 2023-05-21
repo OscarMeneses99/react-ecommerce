@@ -15,13 +15,13 @@ const ProductDetail = () => {
     
         if (isInCart) {
           return (
-            <button className='bg-black/30 text-white w-full p-3 font-medium'>
+            <button className='bg-black/30 text-white w-full p-4 font-medium cursor-not-allowed'>
                 Agregar al carrito
             </button>
           )
         } else {
           return (
-            <button className='bg-black text-white w-full p-3 font-medium'
+            <button className='bg-black text-white w-full p-4 font-medium'
                 onClick={() => addProductToCart()}>
                 Agregar al carrito
             </button>

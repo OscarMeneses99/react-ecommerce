@@ -11,6 +11,9 @@ export const ShoopingCartProvider = ({ children }) => {
     //ShoopingCart * Add products to cart
     const [cartProducts, setCartProducts] = useState([]);
 
+    //Shooping Card * Order
+    const [order, setOrder] = useState([])
+
     //Product Detail * Open/Close
     const [isProductDetailView, setProductDetailView] = useState(false);
     const openProductDetail = () => setProductDetailView(true);
@@ -45,7 +48,9 @@ export const ShoopingCartProvider = ({ children }) => {
             setCartProducts,
             isCheckoutSideMenuView,
             openCheckoutSideMenu,
-            closeCheckoutSideMenu
+            closeCheckoutSideMenu,
+            order,
+            setOrder
         }}>
             {children}
         </ShoopingCartContext.Provider>

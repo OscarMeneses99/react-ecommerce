@@ -1,7 +1,9 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { ShoopingCartContext } from '../Context/Context'
-import OrderCard from './OrderCard.jsx'
 import { XMarkIcon } from '@heroicons/react/24/solid'
+import { priceTotal } from '../utils/operations'
+import OrderCard from './OrderCard.jsx'
 import './OrderCard.jsx'
 import '../App.css'
 
@@ -14,10 +16,21 @@ const CheckoutSideMenu = () => {
         context.setCount(context.count - 1)
     }
 
+    const handleCheckout = () => {
+        const orderToAdd = {
+            date: new Date(),
+            products: context.cartProducts,
+            totalproducts: context.cartProducts.length,
+            totalPrice: priceTotal(context.cartProducts)
+        }
+        context.setOrder([...context.order, orderToAdd])
+        context.setCartProducts([])
+        context.setCount(0)
+    }
     const renderCarts = () => {
         if (context.cartProducts.length === 0) {
             return (
-                <div className='flex flex-col  justify-center items-center h-full gap-1'>
+                <div className='flex flex-col justify-center items-center h-full gap-1'>
                     <p className='text-2xl font-light italic text-black/60'>Vacio</p>
                     <p className='text-2xl font-light italic text-black/60'>Agrega algo al carrito </p>
                 </div>
@@ -25,15 +38,32 @@ const CheckoutSideMenu = () => {
         }
         else {
             return (
-                context.cartProducts.map((product) => (<OrderCard
-                    key={product.id}
-                    id={product.id}
-                    title={product.title}
-                    imageUrl={product.images}
-                    price={product.price}
-                    handleDelete={handleDelete}
-                />
-                ))
+                <>
+                    {
+                        context.cartProducts.map((product) => (<OrderCard
+                            key={product.id}
+                            id={product.id}
+                            title={product.title}
+                            imageUrl={product.images}
+                            price={product.price}
+                            handleDelete={handleDelete}
+                        />
+                        ))
+                    }
+                    <div className='flex text-right text-black/60 p-6'>
+                        <span className='text-5sm font-light'>Total:</span>
+                        <span className='text-5sm font-light'>${priceTotal(context.cartProducts)}</span>
+                    </div>
+                    <Link to='/my-orders/last'>
+                        <button
+                            className='bg-black text-white w-full p-4 my-2 font-medium rounded-lg'
+                            onClick={() => handleCheckout()}
+                        >
+                            Checkout
+                        </button>
+                    </Link>
+                </>
+
             )
         }
     }
