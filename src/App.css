@@ -14,32 +14,9 @@
     top: 80px;
 }
 
-/* ===== Scrollbar CSS ===== */
+
 .scrollable-cards {
-    overflow: scroll;
+    overflow-y: auto;
+    height: calc(97vh - 80px);
 }
 
-/* Firefox */
-.scrollable-cards {
-    scrollbar-width: auto;
-    scrollbar-color: #141414 #ffffff;
-    /*overflow-x: hidden; */
-}
-
-/* Chrome, Edge, and Safari */
-.scrollable-cards::-webkit-scrollbar {
-    width: 16px;
-    /*overflow-x: hidden; */
-}
-
-.scrollable-cards::-webkit-scrollbar-track {
-    background: #ffffff;
-    /*overflow-x: hidden; */
-}
-
-.scrollable-cards::-webkit-scrollbar-thumb {
-    background-color: #141414;
-    border-radius: 10px;
-    border: 3px solid #000000;
-    /*overflow-x: hidden; */
-}
