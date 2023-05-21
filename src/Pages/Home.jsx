@@ -11,14 +11,14 @@ const Home = () => {
   useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
       .then(res => res.json())
-      .then(json => setItems(json))
+      .then(data=> setItems(data))
   }, [])
 
   return (
     <Layout>
       <div className="grid gap-8 grid-cols-4 w-full max-w-screen-lg h-full">
         {
-          items?.map((product) => (<Card key={product.id} {...product} />))
+          items?.map((item) => (<Card key={item.id} data={item} />))
         }
       </div>
       <CheckoutSideMenu />

@@ -16,13 +16,12 @@ const ProductDetail = () => {
                 </div>
             </div>
             <figure className='px-10 py-0'>
-                <img className='w-full h-full object-cover rounded-lg' src={productShow.images[1]} alt={productShow.title} />
+                <img className='w-full h-full object-cover rounded-lg' src={productShow.images} alt={productShow.title} />
             </figure>
             <p className='flex flex-col p-6'>
                 <span className='text-2xl font-medium mb-1'>{productShow.title}</span>
                 <span className='text-md font-medium'>${productShow.price}</span>
-                <span className='text-sm font-light'>-{productShow.description}</span>
-
+                <span className='text-sm font-light text-justify'>{productShow.description}</span>
             </p>
         </aside>
     )
