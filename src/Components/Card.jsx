@@ -26,8 +26,8 @@ const Card = (data) => {
     if (isInCart) {
       return (
         <div
-          className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'>
-          <CheckIcon className='h-7 w-7  text-green-500 cursor-not-allowed'></CheckIcon>
+          className='absolute top-0 right-0 flex justify-center items-center bg-green-400 w-6 h-6 rounded-full m-2 p-1'>
+          <CheckIcon className='h-8 w-8  text-black cursor-not-allowed'></CheckIcon>
         </div>
       )
     } else {

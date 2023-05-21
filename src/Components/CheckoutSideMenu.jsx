@@ -18,9 +18,9 @@ const CheckoutSideMenu = () => {
 
     const handleCheckout = () => {
         const orderToAdd = {
-            date: new Date(),
+            date: `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
             products: context.cartProducts,
-            totalproducts: context.cartProducts.length,
+            totalProducts: context.cartProducts.length,
             totalPrice: priceTotal(context.cartProducts)
         }
         context.setOrder([...context.order, orderToAdd])
