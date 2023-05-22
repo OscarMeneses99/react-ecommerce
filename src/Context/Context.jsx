@@ -1,9 +1,15 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { createContext } from "react";
 
 export const ShoopingCartContext = createContext();
 
 export const ShoopingCartProvider = ({ children }) => {
+
+    useEffect(() => {
+        fetch('https://api.escuelajs.co/api/v1/products')
+            .then(res => res.json())
+            .then(data => setItems(data))
+    }, [])
 
     //ShoopingCart * Increment quantity
     const [count, setCount] = useState(0);
@@ -25,15 +31,60 @@ export const ShoopingCartProvider = ({ children }) => {
     const closeCheckoutSideMenu = () => setCheckoutSideMenuView(false);
 
     //Product Detail * Show Product
-    const [productShow, setProductShow] = useState({
-        title: "",
-        price: "",
-        description: "",
-        category: {
-            name: ""
-        },
-        images: [],
-    });
+    const [productShow, setProductShow] = useState({});
+
+    //Get Products
+    const [items, setItems] = useState(null)
+    const [filteredItems, setFilteredItems] = useState(null)
+
+    //Get Products by Title
+    const [searchByTitle, setSearchByTitle] = useState(null)
+
+    //Get Products by Category
+    const [searchByCategory, setSearchByCategory] = useState(null)
+
+    //Filter Products
+    const filteredItemsByTitle = (items, searchByTitle) => {
+        return items?.filter(item =>
+            item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+        )
+    }
+
+    const filteredItemsByCategory = (items, searchByCategory) => {
+        return items?.filter(item =>
+            item.category.name.toLowerCase().includes(searchByCategory.toLowerCase())
+        )
+    }
+
+    const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+        if (searchType === 'BY_TITLE') {
+            return filteredItemsByTitle(items, searchByTitle)
+        }
+        if (searchType === 'BY_CATEGORY') {
+            return filteredItemsByCategory(items, searchByCategory)
+        }
+        if (searchType === 'BY_TITLE_AND_CATEGORY') {
+            return filteredItemsByCategory(items, searchByCategory).filter(item =>
+                item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+            )
+        }
+        if (!searchType) {
+            return items
+        }
+    }
+
+    // Dentro del componente
+    useEffect(() => {
+        if (searchByTitle && searchByCategory) {
+            setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchByTitle, searchByCategory))
+        } else if (searchByTitle && !searchByCategory) {
+            setFilteredItems(filterBy('BY_TITLE', items, searchByTitle, searchByCategory))
+        } else if (!searchByTitle && searchByCategory) {
+            setFilteredItems(filterBy('BY_CATEGORY', items, searchByTitle, searchByCategory))
+        } else {
+            setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
+        }
+    }, [items, searchByTitle, searchByCategory])
 
     return (
         <ShoopingCartContext.Provider value={{
@@ -50,7 +101,15 @@ export const ShoopingCartProvider = ({ children }) => {
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
             order,
-            setOrder
+            setOrder,
+            items,
+            setItems,
+            searchByTitle,
+            setSearchByTitle,
+            filteredItems,
+            setFilteredItems,
+            searchByCategory,
+            setSearchByCategory
         }}>
             {children}
         </ShoopingCartContext.Provider>

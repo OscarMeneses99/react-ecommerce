@@ -8,7 +8,7 @@ const MyOrders = () => {
   console.log(context.order)
   return (
     <Layout>
-      <h1 className="text-2xl font-semibold">My Orders</h1>
+      <h1 className="text-2xl font-medium">My Orders</h1>
       <div className="flex flex-col items-center gap-4 m-6">
         {
           context.order.map((order, index) => (

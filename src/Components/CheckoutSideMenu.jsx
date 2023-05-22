@@ -24,6 +24,7 @@ const CheckoutSideMenu = () => {
             totalPrice: priceTotal(context.cartProducts)
         }
         context.setOrder([...context.order, orderToAdd])
+        context.setSearchByTitle(null)
         context.setCartProducts([])
         context.setCount(0)
     }
